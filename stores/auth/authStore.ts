@@ -7,14 +7,14 @@ import type { LoginType } from '@/types/loginType'
 export const useAuthStore = defineStore('authStore', () => {
 
     let user = ref(null);
-    let token = ref(useCookie('token'));
+    let token = ref(useCookie('token', {maxAge: 60 * 60 * 24 * 7 })); // Expiração do Cookie: de 7 dias
     
     const register = async (userRegister: RegisterType) => {
         try {
             const config = useRuntimeConfig();
-            const apiUrl: string = config.public.API_URL as string; // Forçar o tipo string
+            const apiUrl: string = config.public.myValue as string; // Forçar o tipo string
 
-            const response: any = await $fetch('/register', {
+            const response: any = await $fetch(`${apiUrl}/register`, {
                 baseURL: apiUrl,
                 method: 'POST',
                 body: userRegister
@@ -31,10 +31,11 @@ export const useAuthStore = defineStore('authStore', () => {
 
     const login = async (userLogin: LoginType) => {
         try {
-            /* const config = useRuntimeConfig();
-            const apiUrl: string = config.public.apiBase as string; */
+            const config = useRuntimeConfig();
+            const apiUrl: string = config.public.myValue as string;
+            
     
-            const response: any = await $fetch('http://localhost:8000/api/login', {
+            const response: any = await $fetch(`${apiUrl}/login`, {
                 method: 'POST',
                 body: userLogin
             });
@@ -44,6 +45,7 @@ export const useAuthStore = defineStore('authStore', () => {
     
             console.log('Login Response ->', response);
             console.log('Token após login ->', token.value); // Verificar se o token foi salvo corretamente
+            console.log('Auth Store Api Url ->', `${apiUrl}`);
     
         } catch (error) {
             console.error('Erro ao fazer login:', error);
@@ -54,10 +56,10 @@ export const useAuthStore = defineStore('authStore', () => {
     const logout = async () => {
         try {
 
-            /* const config = useRuntimeConfig();
-            const apiUrl: string = config.public.API_URL as string; // Forçar o tipo string */
+            const config = useRuntimeConfig();
+            const apiUrl: string = config.public.myValue as string;
 
-            const response: any = await $fetch('http://localhost:8000/api/logout', {
+            const response: any = await $fetch(`${apiUrl}/logout`, {
                 method: 'POST',
                 headers:{
                     'Authorization': `Bearer ${token.value}`

@@ -41,6 +41,8 @@
         <NuxtLink to="/dashboard">Dashboard</NuxtLink>
         <br>
         <NuxtLink to="/">Home</NuxtLink>
+
+        
     </div>
 </template>
 

@@ -12,7 +12,10 @@
     <div>
       Dashboard Page
       <NuxtLink to="/">Voltar Para Home</NuxtLink>
+      <br>
       <button @click="authStoreInstance.logout()">Logout</button>
+      <br><br>
+      <div>{{ $config.public.myValue || 'No Value' }}</div>
     </div>
 </template>
 
