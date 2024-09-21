@@ -19,7 +19,8 @@ const submitRegister = async () => {
 
 
 <template>
-    <div>
+    <div class="register-body">
+        <NavBarC></NavBarC>
 
         <form @submit.prevent="submitRegister">
             <div>
@@ -51,4 +52,14 @@ const submitRegister = async () => {
 </template>
 
 
-<style scoped></style>
+<style scoped>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.register-body{
+    @apply
+    h-screen
+    bg-slate-800;
+}
+</style>

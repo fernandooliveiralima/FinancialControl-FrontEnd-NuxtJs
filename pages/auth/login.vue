@@ -23,8 +23,9 @@
 
 
 <template>
-    <div>
-    
+    <div class="login-body">
+        <NavBarC></NavBarC>
+
         <form @submit.prevent="submitLogin">
             <div>
                 <label for="email"></label>
@@ -38,7 +39,7 @@
 
             <button type="submit">Login</button>
         </form>
-        <NuxtLink to="/dashboard">Dashboard</NuxtLink>
+        <!-- <NuxtLink to="/dashboard">Dashboard</NuxtLink> -->
         <br>
         <NuxtLink to="/">Home</NuxtLink>
 
@@ -48,5 +49,13 @@
 
 
 <style scoped>
-    
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.login-body{
+    @apply
+    h-screen
+    bg-slate-800;
+}
 </style>

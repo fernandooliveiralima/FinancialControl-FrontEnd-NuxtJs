@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { useCookie, useRuntimeConfig } from '#app';
+import { useCookie, useRuntimeConfig, useRouter } from '#app';
 
 import type { RegisterType } from '@/types/registerType'
 import type { LoginType } from '@/types/loginType'
@@ -8,6 +8,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
     let user = ref(null);
     let token = ref(useCookie('token', {maxAge: 60 * 60 * 24 * 7 })); // Expiração do Cookie: de 7 dias
+    const router = useRouter(); // Obtenha o roteador do Nuxt
     
     const register = async (userRegister: RegisterType) => {
         try {
@@ -46,6 +47,8 @@ export const useAuthStore = defineStore('authStore', () => {
             console.log('Login Response ->', response);
             console.log('Token após login ->', token.value); // Verificar se o token foi salvo corretamente
             console.log('Auth Store Api Url ->', `${apiUrl}`);
+
+            router.push('/dashboard');
     
         } catch (error) {
             console.error('Erro ao fazer login:', error);
