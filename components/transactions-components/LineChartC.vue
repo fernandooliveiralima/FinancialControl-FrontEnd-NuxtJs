@@ -124,7 +124,7 @@ onMounted(()=>{
 @layer components{
 
   .transactions-info-total {
-    @apply h-[30rem] w-[50rem] border border-pink-500 px-2;
+    @apply h-[30rem] w-[50rem] px-2;
   }
 
   .line-chart{

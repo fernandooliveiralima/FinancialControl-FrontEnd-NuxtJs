@@ -219,6 +219,15 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
             return Number(transaction.transaction_amount) > 0 ? 'income' : 'expense';
         };
 
+        const percentualColor = (transactionAmount: number) => {
+            if(transactionAmount > 0){
+                return 'income'
+            }else if(transactionAmount < 0){
+                return 'expense'
+            }
+            return '';
+        }
+
         const calculatePercentual = computed(()=>{
             if(incomes.value === 0 ){ return 0; };
 
@@ -253,6 +262,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
         filterListByTime,
         updateFilteredList,
         transactionColor,
+        percentualColor,
         editTransaction,
         updateTransaction,
         formatDate

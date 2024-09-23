@@ -12,15 +12,22 @@ const transactionStoreInstance = useTransactionsStore();
 /* Variables Pinia */
 
 /* Variables Transactions */
-const { calculatePercentual } = storeToRefs(transactionStoreInstance);
+const { calculatePercentual, formAddTransactions } = storeToRefs(transactionStoreInstance);
 /* Variables Transactions */
+
+const percentualDynamicColor = computed(() => {
+    // A função transactionColor agora recebe o tipo da transação (income ou expense)
+    const transactionAmount = formAddTransactions.value.transaction_amount; // Substitua 'transaction_type' pelo campo correto
+    return transactionStoreInstance.percentualColor( transactionAmount );
+});
+
 </script>
 
 
 <template>
     <div>
         <ul>
-            <li>{{ calculatePercentual }}%</li>
+            <li class="percentualColor">{{ calculatePercentual }}%</li>
         </ul>
     </div>
 </template>
@@ -30,4 +37,13 @@ const { calculatePercentual } = storeToRefs(transactionStoreInstance);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+
+    .percentualColor{
+        @apply text-blue-700 absolute top-[45rem] right-[15.5rem] text-6xl font-semibold;
+    }
+
+}
+
 </style>
