@@ -9,6 +9,7 @@ export const useAuthStore = defineStore('authStore', () => {
     let user = ref(null);
     let token = ref(useCookie('token', {maxAge: 60 * 60 * 24 * 7 })); // Expiração do Cookie: de 7 dias
     const router = useRouter(); // Obtenha o roteador do Nuxt
+    let loggedIn = ref(false);
     
     const register = async (userRegister: RegisterType) => {
         try {
@@ -43,10 +44,13 @@ export const useAuthStore = defineStore('authStore', () => {
     
             user.value = response.user;
             token.value = response.token;  // Salvando o token no cookie
+            loggedIn.value = true;
     
             console.log('Login Response ->', response);
             console.log('Token após login ->', token.value); // Verificar se o token foi salvo corretamente
             console.log('Auth Store Api Url ->', `${apiUrl}`);
+            console.log('User após o login', user.value);
+            console.log('LoggedIn após o login', loggedIn.value);
 
             router.push('/dashboard');
     
@@ -72,8 +76,11 @@ export const useAuthStore = defineStore('authStore', () => {
 
             user.value = null;
             token.value = null;
+            loggedIn.value = false;
             
             console.log('Logout Response ->', response);
+            console.log('Token após logout ->', token.value);
+            console.log('User após o logout ->', user.value);
 
         } catch (error) {
             
@@ -83,6 +90,7 @@ export const useAuthStore = defineStore('authStore', () => {
     return {
         user,
         token,
+        loggedIn,
 
         register,
         login,

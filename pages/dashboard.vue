@@ -5,8 +5,6 @@ definePageMeta({
 
 import { storeToRefs } from 'pinia';
 
-
-
 import InfoCardsC from '@/components/transactions-components/InfoCardsC.vue';
 import LineChartC from '~/components/transactions-components/LineChartC.vue';
 import FormTransactionsInfoC from '@/components/transactions-components/FormTransactionsInfoC.vue';
@@ -14,12 +12,23 @@ import DoughnutChartC from '@/components/transactions-components/DoughnutChartC.
 
 import { useAuthStore } from '@/stores/auth/authStore';
 const authStoreInstance = useAuthStore();
+const {token, user} = storeToRefs(authStoreInstance);
 
 import { useTransactionsStore } from '@/stores/transactions/transactionsStore';
 const transactionsStoreInstance = useTransactionsStore();
-const { count } = storeToRefs(transactionsStoreInstance);
+const { containerAllTransactions,formAddTransactions } = storeToRefs(transactionsStoreInstance);
 
+onMounted( async ()=>{
 
+  transactionsStoreInstance.$patch({
+        filteredList: transactionsStoreInstance.filterListByTime(formAddTransactions.value.transaction_date, containerAllTransactions.value),
+    });
+
+    await transactionsStoreInstance.loadAllTransactions();
+
+  console.log('token após auth dashboard ->', token.value);
+  console.log('user após auth dashboard ->', user.value);
+})
 </script>
 
 

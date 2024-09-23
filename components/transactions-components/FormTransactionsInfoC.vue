@@ -1,26 +1,67 @@
-<script setup>
+<script setup lang="ts">
+/* Pinia Imports */
+import { storeToRefs } from 'pinia';
+/* Pinia Imports */
 
+/* Variables Pinia */
+import {useTransactionsStore} from '@/stores/transactions/transactionsStore';
+
+const transactionStoreInstance = useTransactionsStore();
+const { formAddTransactions } = storeToRefs(transactionStoreInstance);
+/* Variables Pinia */
+
+/* Actions */
+
+/* Action Save Transaction */
+const saveTransaction = () => {
+        if (formAddTransactions.value.transaction_name === '' || formAddTransactions.value.transaction_amount === undefined) {
+            alert('Preencha todos os campos!');
+            return;
+            
+        } else if (formAddTransactions.value.transaction_type === 'expense' && formAddTransactions.value.transaction_amount) {
+            formAddTransactions.value.transaction_amount *= -1;
+        }
+
+        const transaction = {
+            id: formAddTransactions.value.id++,
+            transaction_name: formAddTransactions.value.transaction_name,
+            transaction_date: formAddTransactions.value.transaction_date,
+            transaction_category: formAddTransactions.value.transaction_category,
+            transaction_amount: formAddTransactions.value.transaction_amount,
+            transaction_type: formAddTransactions.value.transaction_type
+        };
+
+        transactionStoreInstance.addTransactions(transaction);
+
+        // Limpar o formulário
+        formAddTransactions.value.transaction_name = '';
+        formAddTransactions.value.transaction_amount = undefined;
+        formAddTransactions.value.transaction_type = 'income';
+    };
+/* Action Save Transaction */
+
+/* Actions */
 </script>
 
 
 <template>
     <div>
 
-        <form class="bg-slate-700 mt-16 ml-3 rounded-md">
+        <form @submit.prevent="saveTransaction" class="bg-slate-700 mt-16 ml-3 rounded-md">
 
             <div class="w-full flex items-center justify-between">
                 <span class="text-3xl">Form Transactions</span>
                 <div class="w-64 flex items-center justify-between">
                     <div class="section-income">
                         <label class="text-2xl text-green-600 font-semibold" for="income">Income</label>
-                        <input class=" ml-1 accent-green-600" type="radio" name="income" id="income" value="income">
+                        <input class=" ml-1 accent-green-600" type="radio" name="income" id="income" value="income" v-model="formAddTransactions.transaction_type"/>
                     </div>
 
-                    <div class="section-income">
-                        <label class="text-2xl text-red-600 font-semibold" for="income">Expense</label>
-                        <input class="ml-1 accent-red-600" type="radio" name="income" id="income" value="income">
+                    <div class="section-expense">
+                        <label class="text-2xl text-red-600 font-semibold" for="expense">Expense</label>
+                        <input class="ml-1 accent-red-600" type="radio" name="expense" id="expense" value="expense" v-model="formAddTransactions.transaction_type"/>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -29,20 +70,20 @@
 
                 <div class="form-inputs">
                     <label for="name">Description</label>
-                    <input type="text" name="name" id="name" placeholder="description" />
+                    <input type="text" name="name" id="name" placeholder="description"  v-model="formAddTransactions.transaction_name"/>
                 </div>
-    
+
                 <div class="form-inputs">
                     <label for="amount">Amount</label>
-                    <input type="number" name="amount" id="amount" placeholder="Amount" min="0" step="0.01"/>
+                    <input type="number" name="amount" id="amount" placeholder="Amount" min="0" step="0.01" v-model.number="formAddTransactions.transaction_amount"/>
                 </div>
-    
+
                 <div class="form-inputs">
                     <label for="date">Date</label>
-                    <input type="date" name="date" id="date" placeholder="Register Password" />
+                    <input type="date" name="date" id="date" placeholder="Register Password" v-model="formAddTransactions.transaction_date"/>
                 </div>
-                
-                
+
+
             </div>
             <button class="w-full" type="submit">Add Transaction</button>
         </form>

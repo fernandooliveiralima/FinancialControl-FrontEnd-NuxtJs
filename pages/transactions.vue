@@ -9,6 +9,13 @@ import TableInfoC from '@/components/transactions-components/TableInfoC.vue'
 
 import { useAuthStore } from '@/stores/auth/authStore';
 const authStoreInstance = useAuthStore();
+
+import {useTransactionsStore} from '@/stores/transactions/transactionsStore';
+const transactionStoreInstance = useTransactionsStore();
+
+onMounted( async ()=>{
+  await transactionStoreInstance.loadAllTransactions();
+});
 </script>
 
 
