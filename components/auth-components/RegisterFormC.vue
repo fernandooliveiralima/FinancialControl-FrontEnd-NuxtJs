@@ -22,7 +22,7 @@ const submitRegister = async () => {
     <div class="form-container">
 
 
-        <form class="bg-slate-700 rounded-md" @submit.prevent="submitRegister">
+        <form class="" @submit.prevent="submitRegister">
             <div class="form-inputs">
                 <label for="name"></label>
                 <input type="text" name="name" id="name" v-model="formRegister.name" placeholder="Register Name" />
@@ -63,7 +63,7 @@ const submitRegister = async () => {
     }
 
     form {
-        @apply h-[20rem] flex flex-col items-start justify-between px-10 py-3;
+        @apply bg-slate-700 rounded-md h-[20rem] flex flex-col items-start justify-between px-10 py-3;
     }
 
     .form-inputs {

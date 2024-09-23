@@ -26,9 +26,7 @@ const percentualDynamicColor = computed(() => {
 
 <template>
     <div>
-        <ul>
-            <li class="percentualColor">{{ calculatePercentual }}%</li>
-        </ul>
+        <span class="percentualColor">{{ calculatePercentual }}%</span>
     </div>
 </template>
 
@@ -41,7 +39,7 @@ const percentualDynamicColor = computed(() => {
 @layer components{
 
     .percentualColor{
-        @apply text-blue-700 absolute top-[45rem] right-[15.5rem] text-6xl font-semibold;
+        @apply text-blue-700 absolute top-[45rem] right-[16.5rem] text-6xl font-semibold;
     }
 
 }
