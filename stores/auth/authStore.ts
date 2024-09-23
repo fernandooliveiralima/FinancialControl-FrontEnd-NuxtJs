@@ -13,11 +13,10 @@ export const useAuthStore = defineStore('authStore', () => {
     
     const register = async (userRegister: RegisterType) => {
         try {
-            const config = useRuntimeConfig();
-            const apiUrl: string = config.public.myValue as string; // Forçar o tipo string
+            /* const config = useRuntimeConfig();
+            const apiUrl: string = config.public.myValue as string; // Forçar o tipo string */
 
-            const response: any = await $fetch(`${apiUrl}/register`, {
-                baseURL: apiUrl,
+            const response: any = await $fetch(`http://localhost:8000/api/register`, {
                 method: 'POST',
                 body: userRegister
             });
@@ -33,11 +32,11 @@ export const useAuthStore = defineStore('authStore', () => {
 
     const login = async (userLogin: LoginType) => {
         try {
-            const config = useRuntimeConfig();
-            const apiUrl: string = config.public.myValue as string;
+            /* const config = useRuntimeConfig();
+            const apiUrl: string = config.public.myValue as string; */
             
     
-            const response: any = await $fetch(`${apiUrl}/login`, {
+            const response: any = await $fetch(`http://localhost:8000/api/login`, {
                 method: 'POST',
                 body: userLogin
             });
@@ -48,7 +47,7 @@ export const useAuthStore = defineStore('authStore', () => {
     
             console.log('Login Response ->', response);
             console.log('Token após login ->', token.value); // Verificar se o token foi salvo corretamente
-            console.log('Auth Store Api Url ->', `${apiUrl}`);
+            //console.log('Auth Store Api Url ->', `${apiUrl}`);
             console.log('User após o login', user.value);
             console.log('LoggedIn após o login', loggedIn.value);
 
@@ -63,10 +62,10 @@ export const useAuthStore = defineStore('authStore', () => {
     const logout = async () => {
         try {
 
-            const config = useRuntimeConfig();
-            const apiUrl: string = config.public.myValue as string;
+            /* const config = useRuntimeConfig();
+            const apiUrl: string = config.public.myValue as string; */
 
-            const response: any = await $fetch(`${apiUrl}/logout`, {
+            const response: any = await $fetch(`http://localhost:8000/api/logout`, {
                 method: 'POST',
                 headers:{
                     'Authorization': `Bearer ${token.value}`

@@ -31,7 +31,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
      });
 
      let containerAllTransactions = ref< Array<transactionType> >([
-        {
+        /* {
             id:0,
             transaction_name: 'conta',
             transaction_date: '2023-02-28',
@@ -46,7 +46,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
             transaction_category: 'General',
             transaction_amount: 3000,
             transaction_type: 'income',
-        }
+        } */
      ]);
  /* Variables Transactions */
 
@@ -58,29 +58,31 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
     /* Actions Crud Transactions */
 
     /* addTransactions */
-    const addTransactions = async (transaction: transactionType)=>{
+    const addTransactions = async (transaction: transactionType) => {
         try {
-            const response: TransactionResponse = await $fetch(`http://localhost:8000/api/transactions`, {
-                method: 'POST',
-                body: transaction,
-                headers:{
-                    'Authorization' : `Bearer ${token.value}`,
-                    'Accept' : 'application/json'
-                }
-            });
-
-            containerAllTransactions.value.unshift(response);
-            console.log('Async Data', response);
+          const response: TransactionResponse = await $fetch(`http://localhost:8000/api/transactions`, {
+            method: 'POST',
+            body: transaction,
+            headers: {
+              'Authorization': `Bearer ${token.value}`,
+              'Accept': 'application/json'
+            }
+          });
+      
+          containerAllTransactions.value.unshift(response);
+          updateFilteredList(); // Atualiza a lista filtrada após inserir uma nova transação
+          console.log('Async Data', response);
         } catch (error) {
-            console.log(error);
+          console.log(error);
         }
-    }
+      };
+      
     /* addTransactions */
 
     /* loadAllTransactions */
     const loadAllTransactions  = async ()=>{
         try {
-            const response: TransactionResponse = await $fetch(`http://localhost:8000/api/transactions`, {
+            const response: Array< TransactionResponse > = await $fetch(`http://localhost:8000/api/transactions`, {
                 method:'GET',
                 headers:{
                     'Authorization' : `Bearer ${token.value}`,
@@ -88,7 +90,8 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
                 }
             });
 
-            
+            containerAllTransactions.value = response;
+            updateFilteredList();
             console.log('loadAllTransactions()', response);
         } catch (error) {
             console.log(error);
