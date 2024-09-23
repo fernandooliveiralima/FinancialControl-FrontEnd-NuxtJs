@@ -35,8 +35,8 @@
 
 <template>
   <div>
-    <section class="mt-10">
-      <div class="w-[100rem] bg-slate-700 p-3 text-2xl font-semibold rounded-md flex items-center justify-between ">
+    <section class="mt-10 overflow-y-auto max-h-96">
+      <div class="w-full bg-slate-700 p-3 text-2xl font-semibold rounded-md flex items-center justify-between ">
         <span>Description</span>
         <span>Date</span>
         <span>Amount</span>
@@ -46,15 +46,15 @@
       </div>
 
       <div v-for="(iterator) in filteredList" :key="iterator.id" class="default-style table-content"> 
-        <span>{{ iterator.transaction_name }}</span>
-
+        <div class="text-xl">{{ iterator.transaction_name }}</div>
+         
         <div class="text-xl">{{ transactionStoreInstance.formatDate(iterator.transaction_date) }}</div class="text-xl">
 
         <span :class="transactionStoreInstance.transactionColor(iterator)" id="amount-style">
           {{ transactionStoreInstance.formatAmounts(Number(iterator.transaction_amount)) }}
         </span>
 
-        <span>{{ iterator.transaction_category }}</span>
+        <span class="text-xl">{{ iterator.transaction_category }}</span>
 
         <span :class="transactionStoreInstance.transactionColor(iterator)" id="type-style">
           {{ iterator.transaction_type }}
@@ -87,7 +87,7 @@
 @tailwind utilities;
 
 .default-style > span {
-  @apply text-2xl;
+  @apply text-xl;
 }
 
 .table-content {
