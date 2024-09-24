@@ -1,20 +1,19 @@
 import {defineStore, storeToRefs} from 'pinia';
 import dayjs from 'dayjs';
-
-
 import {useAuthStore} from '@/stores/auth/authStore';
-
-
 import type {transactionType} from '@/types/transactions/transactionModel';
 import type {TransactionResponse} from '@/types/asyncDataTypes/transactionDataModel';
-
 import {filterListByTime} from '@/composables/dateFilterComp';
+
+import { useToast } from 'vue-toastification';
 
 export const useTransactionsStore = defineStore('transactionsStore', () => {
 
     /* Variables dayjs() Library */
     const dayjsInstance = ref(dayjs());
     /* Variables dayjs() Library */
+
+    const toast = useToast();
 
      /* Variables Transactions */
      
@@ -119,6 +118,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
                         (currentTransaction.value.transaction_type === 'expense' 
                             && Number(currentTransaction.value.transaction_amount) > 0)
                     ) {
+                        toast.error('The Value and Type Must Be the Same!');
                         console.error('O valor da transação não condiz com o tipo.');
                         return; // Impede a continuação da submissão se a validação falhar
                     }
@@ -141,6 +141,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
                             currentTransaction.value = null; // Limpar após edição
                         }
 
+                        toast.info('Transaction Edited!');
                         console.log('Transaction updated successfully:', response);
                     } catch (error) {
                         console.error('Error updating transaction:', error);
@@ -168,6 +169,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
                     .filter((item) => item.id !== id);
 
                 updateFilteredList(); // Atualiza a lista filtrada
+                toast.success('Transaction Removed!');
                 console.log('Transaction removed successfully.');
             } catch (error) {
                 console.error('Error removing transaction:', error);

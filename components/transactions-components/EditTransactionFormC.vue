@@ -6,6 +6,12 @@ import { useTransactionsStore } from '@/stores/transactions/transactionsStore';
 const transactionStoreInstance = useTransactionsStore();
 const { currentTransaction } = storeToRefs(transactionStoreInstance);
 
+/* Imports Toast */
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
+/* Imports Toast */
+
 const props = defineProps({
     closeModal:{
         type: Function,
@@ -22,6 +28,7 @@ const updateTransaction = () => {
     transactionStoreInstance.updateTransaction();
     props.closeModal();
     props.showModal
+    
 };
 
 

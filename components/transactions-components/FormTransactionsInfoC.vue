@@ -3,8 +3,15 @@
 import { storeToRefs } from 'pinia';
 /* Pinia Imports */
 
+/* Imports Toast */
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
+/* Imports Toast */
+
+
 /* Variables Pinia */
-import {useTransactionsStore} from '@/stores/transactions/transactionsStore';
+import { useTransactionsStore } from '@/stores/transactions/transactionsStore';
 
 const transactionStoreInstance = useTransactionsStore();
 const { formAddTransactions } = storeToRefs(transactionStoreInstance);
@@ -14,30 +21,32 @@ const { formAddTransactions } = storeToRefs(transactionStoreInstance);
 
 /* Action Save Transaction */
 const saveTransaction = () => {
-        if (formAddTransactions.value.transaction_name === '' || formAddTransactions.value.transaction_amount === undefined) {
-            alert('Preencha todos os campos!');
-            return;
-            
-        } else if (formAddTransactions.value.transaction_type === 'expense' && formAddTransactions.value.transaction_amount) {
-            formAddTransactions.value.transaction_amount *= -1;
-        }
+    if (formAddTransactions.value.transaction_name === '' || formAddTransactions.value.transaction_amount === undefined) {
+        toast.warning('Fill in all the fields!');
+        return;
 
-        const transaction = {
-            id: formAddTransactions.value.id++,
-            transaction_name: formAddTransactions.value.transaction_name,
-            transaction_date: formAddTransactions.value.transaction_date,
-            transaction_category: formAddTransactions.value.transaction_category,
-            transaction_amount: formAddTransactions.value.transaction_amount,
-            transaction_type: formAddTransactions.value.transaction_type
-        };
+    } else if (formAddTransactions.value.transaction_type === 'expense' && formAddTransactions.value.transaction_amount) {
+        formAddTransactions.value.transaction_amount *= -1;
+    }
 
-        transactionStoreInstance.addTransactions(transaction);
-
-        // Limpar o formulário
-        formAddTransactions.value.transaction_name = '';
-        formAddTransactions.value.transaction_amount = undefined;
-        formAddTransactions.value.transaction_type = 'income';
+    const transaction = {
+        id: formAddTransactions.value.id++,
+        transaction_name: formAddTransactions.value.transaction_name,
+        transaction_date: formAddTransactions.value.transaction_date,
+        transaction_category: formAddTransactions.value.transaction_category,
+        transaction_amount: formAddTransactions.value.transaction_amount,
+        transaction_type: formAddTransactions.value.transaction_type
     };
+
+    transactionStoreInstance.addTransactions(transaction);
+
+    // Limpar o formulário
+    formAddTransactions.value.transaction_name = '';
+    formAddTransactions.value.transaction_amount = undefined;
+    formAddTransactions.value.transaction_type = 'income';
+
+    toast.success('Transaction Added!');
+};
 /* Action Save Transaction */
 
 /* Actions */
@@ -54,12 +63,14 @@ const saveTransaction = () => {
                 <div class="w-64 flex items-center justify-between">
                     <div class="section-income">
                         <label class="text-2xl text-green-600 font-semibold" for="income">Income</label>
-                        <input class=" ml-1 accent-green-600" type="radio" name="income" id="income" value="income" v-model="formAddTransactions.transaction_type"/>
+                        <input class=" ml-1 accent-green-600" type="radio" name="income" id="income" value="income"
+                            v-model="formAddTransactions.transaction_type" />
                     </div>
 
                     <div class="section-expense">
                         <label class="text-2xl text-red-600 font-semibold" for="expense">Expense</label>
-                        <input class="ml-1 accent-red-600" type="radio" name="expense" id="expense" value="expense" v-model="formAddTransactions.transaction_type"/>
+                        <input class="ml-1 accent-red-600" type="radio" name="expense" id="expense" value="expense"
+                            v-model="formAddTransactions.transaction_type" />
                     </div>
 
                 </div>
@@ -70,17 +81,20 @@ const saveTransaction = () => {
 
                 <div class="form-inputs">
                     <label for="name">Description</label>
-                    <input type="text" name="name" id="name" placeholder="description"  v-model="formAddTransactions.transaction_name"/>
+                    <input type="text" name="name" id="name" placeholder="description"
+                        v-model="formAddTransactions.transaction_name" />
                 </div>
 
                 <div class="form-inputs">
                     <label for="amount">Amount</label>
-                    <input type="number" name="amount" id="amount" placeholder="Amount" min="0" step="0.01" v-model.number="formAddTransactions.transaction_amount"/>
+                    <input type="number" name="amount" id="amount" placeholder="Amount" min="0" step="0.01"
+                        v-model.number="formAddTransactions.transaction_amount" />
                 </div>
 
                 <div class="form-inputs">
                     <label for="date">Date</label>
-                    <input type="date" name="date" id="date" placeholder="Register Password" v-model="formAddTransactions.transaction_date"/>
+                    <input type="date" name="date" id="date" placeholder="Register Password"
+                        v-model="formAddTransactions.transaction_date" />
                 </div>
 
 

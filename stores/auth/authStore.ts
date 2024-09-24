@@ -1,8 +1,14 @@
 import { defineStore } from 'pinia';
 import { useCookie, useRuntimeConfig, useRouter } from '#app';
 
-import type { RegisterType } from '@/types/registerType'
-import type { LoginType } from '@/types/loginType'
+import type { RegisterType } from '@/types/registerType';
+import type { LoginType } from '@/types/loginType';
+
+/* Imports Toast */
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
+/* Imports Toast */
 
 export const useAuthStore = defineStore('authStore', () => {
 
@@ -23,8 +29,9 @@ export const useAuthStore = defineStore('authStore', () => {
 
             user.value = response
             
-            console.log('Register Response ->', response);
+            toast.success('Registered User!');
 
+            console.log('Register Response ->', response);
         } catch (error) {
             console.error('Erro ao registrar:', error);
         }
@@ -32,10 +39,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
     const login = async (userLogin: LoginType) => {
         try {
-            /* const config = useRuntimeConfig();
-            const apiUrl: string = config.public.myValue as string; */
             
-    
             const response: any = await $fetch(`http://localhost:8000/api/login`, {
                 method: 'POST',
                 body: userLogin
@@ -52,8 +56,9 @@ export const useAuthStore = defineStore('authStore', () => {
             console.log('LoggedIn após o login', loggedIn.value);
 
             router.push('/dashboard');
-    
-        } catch (error) {
+            toast.success('Logged in user!');
+        } catch (error: any) {
+            toast.error('Invalid Credentials!');
             console.error('Erro ao fazer login:', error);
         }
     };
@@ -77,6 +82,8 @@ export const useAuthStore = defineStore('authStore', () => {
             token.value = null;
             loggedIn.value = false;
             
+            toast.success(`${response.message}`);
+
             console.log('Logout Response ->', response);
             console.log('Token após logout ->', token.value);
             console.log('User após o logout ->', user.value);

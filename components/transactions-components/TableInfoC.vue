@@ -35,8 +35,8 @@
 
 <template>
   <div>
-    <section class="mt-10 overflow-y-auto max-h-96">
-      <div class="w-full bg-slate-700 p-3 text-2xl font-semibold rounded-md flex items-center justify-between ">
+    <section class="mt-10  overflow-y-auto max-h-96">
+      <div class="w-[100rem] bg-slate-700 p-3 text-2xl font-semibold rounded-md flex items-center justify-between ">
         <span>Description</span>
         <span>Date</span>
         <span>Amount</span>

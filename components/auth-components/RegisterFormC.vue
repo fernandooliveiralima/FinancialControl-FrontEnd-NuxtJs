@@ -13,7 +13,12 @@ const formRegister = reactive<RegisterType>({
 });
 
 const submitRegister = async () => {
-    await authStoreInstance.register(formRegister)
+    await authStoreInstance.register(formRegister);
+    
+    formRegister.name = ''
+    formRegister.email = ''
+    formRegister.password = ''
+    formRegister.password_confirmation = ''
 };
 </script>
 
