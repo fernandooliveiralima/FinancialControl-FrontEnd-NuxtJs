@@ -1,5 +1,7 @@
 <script setup lang="ts">
-
+definePageMeta({
+  middleware: 'auth'
+});
 
 import LoginFormC from '@/components/auth-components/LoginFormC.vue';
 

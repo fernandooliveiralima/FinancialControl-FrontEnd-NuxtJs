@@ -1,5 +1,7 @@
 <script setup lang="ts">
-
+definePageMeta({
+  middleware: 'auth'
+});
 
 import RegisterFormC from '@/components/auth-components/RegisterFormC.vue';
 

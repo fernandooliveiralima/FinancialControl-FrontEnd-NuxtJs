@@ -46,8 +46,10 @@
       </div>
 
       <div v-for="(iterator) in filteredList" :key="iterator.id" class="default-style table-content"> 
-        <div class="text-xl">{{ iterator.transaction_name }}</div>
-         
+        <div class="max-w-44 overflow-x-auto">
+          <p class="text-xl whitespace-nowrap">{{ iterator.transaction_name }}</p>
+        </div>
+        
         <div class="text-xl">{{ transactionStoreInstance.formatDate(iterator.transaction_date) }}</div class="text-xl">
 
         <span :class="transactionStoreInstance.transactionColor(iterator)" id="amount-style">
