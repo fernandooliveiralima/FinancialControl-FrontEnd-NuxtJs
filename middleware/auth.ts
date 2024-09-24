@@ -15,8 +15,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
     return navigateTo('/dashboard'); // Redireciona para o dashboard ou outra rota adequada
   }
 
-  // Se o usuário não estiver autenticado e tentar acessar uma rota protegida
-  if (!token.value && to.path !== '/auth/login') {
-    return navigateTo('/auth/login');
+  // Se o usuário não estiver autenticado e tentar acessar uma rota protegida, exceto o registro
+  if (!token.value && to.path !== '/auth/login' && to.path !== '/auth/register') {
+    return navigateTo('/auth/login'); // Redireciona para a página de login se a rota for protegida
   }
 });

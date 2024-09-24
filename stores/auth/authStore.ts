@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('authStore', () => {
             toast.success('Registered User!');
 
             console.log('Register Response ->', response);
-        } catch (error) {
+        } catch (error: unknown) {
             console.error('Erro ao registrar:', error);
         }
     };
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore('authStore', () => {
                 toast.success('Logged in user!'); //toast.success('Logged in user!');
             }
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             toast.error('User does not exist!');
             console.error('Erro ao fazer login:', error);
         }
@@ -92,8 +92,8 @@ export const useAuthStore = defineStore('authStore', () => {
             console.log('Token após logout ->', token.value);
             console.log('User após o logout ->', user.value);
 
-        } catch (error) {
-            
+        } catch (error: any) {
+            console.error('Erro ao fazer login:', error);
         }
     };
 

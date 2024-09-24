@@ -35,7 +35,7 @@
 
 <template>
   <div>
-    <section class="mt-10  overflow-y-auto max-h-96">
+    <section class="mt-10 overflow-y-auto max-h-96">
       <div class="w-[100rem] bg-slate-700 p-3 text-2xl font-semibold rounded-md flex items-center justify-between ">
         <span>Description</span>
         <span>Date</span>
@@ -93,7 +93,7 @@
 }
 
 .table-content {
-  @apply w-[100rem] bg-slate-600 flex items-center rounded-md justify-between mt-20 py-3 px-3;
+  @apply bg-slate-600 flex items-center rounded-md justify-between mt-20 py-3 px-3;
 }
 
 .income {
