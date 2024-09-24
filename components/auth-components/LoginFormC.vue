@@ -5,7 +5,7 @@ const authStoreInstance = useAuthStore();
 
 import type { LoginType } from '@/types/loginType';
 
-const { token, user, loggedIn } = storeToRefs(authStoreInstance);
+const { token, user } = storeToRefs(authStoreInstance);
 
 const formLogin = reactive<LoginType>({
     email: '',
@@ -21,7 +21,7 @@ const submitLogin = async () => {
 onMounted(() => {
     console.log('token antes da auth ->', token.value);
     console.log('user antes da auth ->', user.value);
-    console.log('LoggedIn antes da auth ->', loggedIn.value);
+    
 })
 </script>
 

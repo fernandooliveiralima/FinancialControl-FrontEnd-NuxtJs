@@ -1,6 +1,11 @@
 <script setup>
+import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth/authStore';
 const authStoreInstance = useAuthStore();
+
+const { user } = storeToRefs(authStoreInstance);
+
+import UserC from '@/components/auth-components/UserC.vue';
 </script>
 
 
@@ -26,21 +31,24 @@ const authStoreInstance = useAuthStore();
                     <li>
                         <NuxtLink to="/" @click="authStoreInstance.logout()">Logout</NuxtLink>
                     </li>
-    
+
                     <li>
                         <NuxtLink to="/dashboard">Dashboard</NuxtLink>
                     </li>
                     <li>
                         <NuxtLink to="/transactions">Transactions</NuxtLink>
                     </li>
-    
-                </div>
-    
-                <li>
-                    <small>User</small>
-                </li>
 
                 </div>
+
+                <li v-if="user" class="w-[10%] flex items-center justify-between">
+                    <small class="text-black">{{ user.name }}</small>
+                    <small>
+                        <UserC></UserC>
+                    </small>
+                </li>
+
+            </div>
 
         </ul>
 
