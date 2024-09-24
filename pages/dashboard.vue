@@ -31,7 +31,7 @@ onMounted(async () => {
   });
 
   console.log('token após auth dashboard ->', token.value);
-  console.log('user após auth dashboard ->', user.value);
+  //console.log('user após auth dashboard ->', user.value);
 });
 </script>
 

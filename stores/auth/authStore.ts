@@ -3,6 +3,7 @@ import { useCookie, useRuntimeConfig, useRouter } from '#app';
 
 import type { RegisterType } from '@/types/registerType';
 import type { LoginType } from '@/types/loginType';
+import type { UserType } from '@/types/asyncDataTypes/userModel';
 
 /* Imports Toast */
 import { useToast } from 'vue-toastification';
@@ -12,8 +13,10 @@ const toast = useToast();
 
 export const useAuthStore = defineStore('authStore', () => {
 
-    let user = ref(null);
+    let user = ref( useCookie('user', { maxAge: 60 * 60 * 24 * 7 }) );// 7 dias de expiração
+    
     let token = ref(useCookie('token', {maxAge: 60 * 60 * 24 * 7 })); // Expiração do Cookie: de 7 dias
+    
     const router = useRouter(); // Obtenha o roteador do Nuxt
     
     
@@ -48,12 +51,6 @@ export const useAuthStore = defineStore('authStore', () => {
             user.value = response.user;
             token.value = response.token;  // Salvando o token no cookie
             
-    
-            console.log('Login Response ->', response);
-            console.log('Token após login ->', token.value); // Verificar se o token foi salvo corretamente
-            console.log('User após o login', user.value);
-            
-
             router.push('/dashboard');
             if(response.messageErrorLogin === 'The Provide Credentials Are Incorrect'){
                 toast.error('Invalid Credentials!');
@@ -84,7 +81,6 @@ export const useAuthStore = defineStore('authStore', () => {
 
             user.value = null;
             token.value = null;
-            
             
             toast.success(`${response.message}`);
 

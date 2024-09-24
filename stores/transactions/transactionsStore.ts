@@ -91,7 +91,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
 
             containerAllTransactions.value = response;
             updateFilteredList();
-            console.log('loadAllTransactions()', response);
+            //console.log('loadAllTransactions()', response);
         } catch (error) {
             console.log(error);
         }

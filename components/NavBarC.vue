@@ -3,9 +3,13 @@ import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth/authStore';
 const authStoreInstance = useAuthStore();
 
-const { user, token } = storeToRefs(authStoreInstance);
+const { user } = storeToRefs(authStoreInstance);
 
 import UserC from '@/components/auth-components/UserC.vue';
+
+onMounted(()=>{
+    console.log('Navbar userCookie -> ', user.value);
+})
 </script>
 
 
@@ -41,7 +45,7 @@ import UserC from '@/components/auth-components/UserC.vue';
 
                 </div>
 
-                <li v-if="token" class="w-[10%] flex items-center justify-between">
+                <li v-if="user" class="w-[10%] flex items-center justify-between">
                     <small class="text-black">{{ user.name }}</small>
                     <small>
                         <UserC></UserC>
