@@ -16,7 +16,7 @@ const { token, user } = storeToRefs(authStoreInstance);
 
 import { useTransactionsStore } from '@/stores/transactions/transactionsStore';
 const transactionsStoreInstance = useTransactionsStore();
-const { containerAllTransactions, formAddTransactions } = storeToRefs(transactionsStoreInstance);
+const { containerAllTransactions, filteredList, formAddTransactions } = storeToRefs(transactionsStoreInstance);
 
 onMounted(async () => {
   // Carregar as transações primeiro
@@ -30,9 +30,11 @@ onMounted(async () => {
     ),
   });
 
-  console.log('token após auth dashboard ->', token.value);
-  //console.log('user após auth dashboard ->', user.value);
+  //console.log('onMounted() filteredList ->', filteredList.value)
+  //console.log('onMounted() copyFilteredList', transactionsStoreInstance.percentualColor())
 });
+
+
 </script>
 
 <template>

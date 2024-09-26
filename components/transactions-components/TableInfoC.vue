@@ -42,7 +42,7 @@
         <span>Amount</span>
         <span>Category</span>
         <span>Type</span>
-        <span>Action</span>
+        <span>Actions</span>
       </div>
 
       <div v-for="(iterator) in filteredList" :key="iterator.id" class="default-style table-content"> 

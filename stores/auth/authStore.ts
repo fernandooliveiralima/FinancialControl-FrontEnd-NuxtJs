@@ -84,9 +84,7 @@ export const useAuthStore = defineStore('authStore', () => {
             
             toast.success(`${response.message}`);
 
-            console.log('Logout Response ->', response);
-            console.log('Token após logout ->', token.value);
-            console.log('User após o logout ->', user.value);
+            router.push('/auth/login');
 
         } catch (error: any) {
             console.error('Erro ao fazer login:', error);

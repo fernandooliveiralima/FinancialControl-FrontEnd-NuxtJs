@@ -70,9 +70,9 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
       
           containerAllTransactions.value.unshift(response);
           updateFilteredList(); // Atualiza a lista filtrada após inserir uma nova transação
-          console.log('Async Data', response);
+          //console.log('Async Data', response);
         } catch (error) {
-          console.log(error);
+          //console.log(error);
         }
       };
       
@@ -93,7 +93,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
             updateFilteredList();
             //console.log('loadAllTransactions()', response);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     };
     /* loadAllTransactions */
@@ -119,7 +119,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
                             && Number(currentTransaction.value.transaction_amount) > 0)
                     ) {
                         toast.error('The Value and Type Must Be the Same!');
-                        console.error('O valor da transação não condiz com o tipo.');
+                        //console.error('O valor da transação não condiz com o tipo.');
                         return; // Impede a continuação da submissão se a validação falhar
                     }
 
@@ -142,9 +142,9 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
                         }
 
                         toast.info('Transaction Edited!');
-                        console.log('Transaction updated successfully:', response);
+                        //console.log('Transaction updated successfully:', response);
                     } catch (error) {
-                        console.error('Error updating transaction:', error);
+                        //console.error('Error updating transaction:', error);
                     }
                 }
             };
@@ -170,9 +170,9 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
 
                 updateFilteredList(); // Atualiza a lista filtrada
                 toast.success('Transaction Removed!');
-                console.log('Transaction removed successfully.');
+                //console.log('Transaction removed successfully.');
             } catch (error) {
-                console.error('Error removing transaction:', error);
+                //console.error('Error removing transaction:', error);
             }
         };
     /* Remove Transactions */
@@ -221,19 +221,27 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
             return Number(transaction.transaction_amount) > 0 ? 'income' : 'expense';
         };
 
-        const percentualColor = (transactionAmount: number) => {
-            if(transactionAmount > 0){
-                return 'income'
-            }else if(transactionAmount < 0){
-                return 'expense'
+        const percentualColor = computed(()=>{
+            let copyFilteredList = [...filteredList.value]
+            
+            if(copyFilteredList.length === 0){
+                return 'expense'; // Caso o array esteja vazio
             }
-            return '';
-        }
+            
+            const firstTransaction = copyFilteredList[0] // pega sempre o primeiro elemento do array
+
+            if(Number(firstTransaction.transaction_amount) > 0){
+                return 'income';
+            }else if(Number(firstTransaction.transaction_amount) < 0){
+                return 'expense';
+            }
+            return firstTransaction;
+        });
 
         const calculatePercentual = computed(()=>{
             if(incomes.value === 0 ){ return 0; };
 
-            const percentual = ( Number(incomes.value) - Math.abs( Number(expenses.value) ) ) / Number(incomes.value) * 100;
+            const percentual = ( Number(incomes.value) - Math.abs(Number(expenses.value)) ) / Number(incomes.value) * 100;
 
             // Garantir que o valor esteja entre 0 e 100
             return Math.max(0, Math.min(100, parseInt(`${percentual}`) ));
@@ -243,7 +251,11 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
 
     /* watch() */
         // Assista as mudanças no objeto reativo
-        watch( () => formAddTransactions.transaction_date, updateFilteredList );
+        //watch( () => formAddTransactions.transaction_date, updateFilteredList );
+        watch(() => [containerAllTransactions.value, formAddTransactions.transaction_date], () => {
+              updateFilteredList();  // Chamando a função corretamente
+        });
+          
     /* watch() */
 
     return {
@@ -256,6 +268,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
         incomes,
         expenses,
         totalTransactions,
+        percentualColor,
         
         addTransactions,
         loadAllTransactions,
@@ -264,7 +277,6 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
         filterListByTime,
         updateFilteredList,
         transactionColor,
-        percentualColor,
         editTransaction,
         updateTransaction,
         formatDate

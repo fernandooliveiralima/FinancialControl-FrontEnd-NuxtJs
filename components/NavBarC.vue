@@ -8,7 +8,7 @@ const { user } = storeToRefs(authStoreInstance);
 import UserC from '@/components/auth-components/UserC.vue';
 
 onMounted(()=>{
-    console.log('Navbar userCookie -> ', user.value);
+    
 })
 </script>
 
@@ -26,10 +26,10 @@ onMounted(()=>{
                     <li>
                         <NuxtLink to="/">Home</NuxtLink>
                     </li>
-                    <li>
+                    <li v-if="!user">
                         <NuxtLink to="/auth/login">Login</NuxtLink>
                     </li>
-                    <li>
+                    <li v-if="!user">
                         <NuxtLink to="/auth/register">Register</NuxtLink>
                     </li>
                     <li>

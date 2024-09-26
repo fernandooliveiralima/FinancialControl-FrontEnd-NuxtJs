@@ -14,7 +14,7 @@ const toast = useToast();
 import { useTransactionsStore } from '@/stores/transactions/transactionsStore';
 
 const transactionStoreInstance = useTransactionsStore();
-const { formAddTransactions } = storeToRefs(transactionStoreInstance);
+const { formAddTransactions, filteredList, containerAllTransactions, percentualColor } = storeToRefs(transactionStoreInstance);
 /* Variables Pinia */
 
 /* Actions */
@@ -46,10 +46,16 @@ const saveTransaction = () => {
     formAddTransactions.value.transaction_type = 'income';
 
     toast.success('Transaction Added!');
+    
 };
 /* Action Save Transaction */
 
 /* Actions */
+
+watch([filteredList], ()=>{
+    console.log('percentualColor ->', percentualColor.value);
+    console.log('store filteredList ->', filteredList.value);
+} )
 </script>
 
 
