@@ -28,6 +28,11 @@
 ```bash
 git clone https://github.com/fernandooliveiralima/FinancialControl-FrontEnd-NuxtJs.git 
 ```
+### Step 2 - Access the Project Folder Run the code below in the `vscode` terminal
+```bash
+cd FinancialControl-FrontEnd-NuxtJs 
+```
+
 ### Step 2 - In the `vscode` Terminal, run the code below
 ```bash
 npm install 
