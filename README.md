@@ -1,75 +1,46 @@
-# Nuxt 3 Minimal Starter
+## Personal Financial Control
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Setup
+![maintenance-status](https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg)
 
-Make sure to install the dependencies:
+## Project Description
+     This is a Personal Financial Control application 
+     
 
+## Technologies Used in the Project
+     
+### ChartJs
+![Nuxtjs](https://img.shields.io/badge/Nuxt-002E3B?style=for-the-badge&logo=nuxtdotjs&logoColor=#00DC82)
+
+### Tailwind Css
+![maintenance-status](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+
+### ChartJs
+![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white)
+
+### Laravel
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
+
+### MySQL
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+
+### Requirements
+## NodeJs
+
+## Instructions for Executing the Project
+
+### Step 1 – Clone the project, open `vscode` and then open a new terminal in `Terminal > New Terminal` and run the code below in the terminal
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+git clone https://github.com/fernandooliveiralima/FinancialControl-FrontEnd-NuxtJs.git 
+```
+### Step 2 - In the `vscode` Terminal, run the code below
+```bash
+npm install 
+```
+### Step 3 - In the `vscode` Terminal, run the code below
+```bash
+npm run dev 
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## After that, the application will open in your browser.
