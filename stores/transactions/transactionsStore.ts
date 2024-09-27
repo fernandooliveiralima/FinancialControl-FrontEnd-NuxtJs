@@ -202,7 +202,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
                 .map((expenseAmount) => expenseAmount.transaction_amount)
                 .reduce((acc, expense) => Number(acc) + Number(expense), 0);
     });
-    /* Computeds Amounts */
+    /* Computeds Properties Amounts */
 
     /* Actions to Work With Dates, Values, Colors */
         const formatDate = (date: string)=>{
@@ -250,7 +250,7 @@ export const useTransactionsStore = defineStore('transactionsStore', () => {
     /* Actions to Work With Dates, Values, Colors */
 
     /* watch() */
-        // Assista as mudanças no objeto reativo
+        
         //watch( () => formAddTransactions.transaction_date, updateFilteredList );
         watch(() => [containerAllTransactions.value, formAddTransactions.transaction_date], () => {
               updateFilteredList();  // Chamando a função corretamente

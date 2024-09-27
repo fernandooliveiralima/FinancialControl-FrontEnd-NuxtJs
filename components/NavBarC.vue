@@ -17,7 +17,7 @@ onMounted(()=>{
     <div class="navBar-body">
 
         <ul class="h-16 w-[100%] bg-slate-600 flex items-center justify-between">
-            <div class="text-4xl font-sans font-semibold ml-8">Logo</div>
+            <div class="text-4xl font-sans font-semibold ml-8">Logo Icon</div>
 
             <div class="w-[50%] mr-8 flex items-center justify-between font-sans font-semibold text-xl">
 
